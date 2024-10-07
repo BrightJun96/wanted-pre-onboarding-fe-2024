@@ -10,11 +10,13 @@ function App() {
  const {
      productList,
      getProductListApi,
-     loading
+     loading,
+     totalProductAmount
  } = useProductList()
 
       const scrollContainerRef = React.useRef<HTMLDivElement>(null)
     const scrollEndRef = React.useRef<HTMLDivElement>(null)
+
 
 
     /**
@@ -62,35 +64,36 @@ function App() {
 
 
   return (
-    <div className="App">
-      <div
-          className={"Product-List"}
-          ref={scrollContainerRef}
-      >
-        {productList
-            .datas
-            .map(({
-                                  productId,
-                                  price,
-                                  productName,
-                                  boughtDate
-                                }) =>
-            <ProductItem
-                key={productId}
-                productId={productId}
-                productName={productName}
-                price={price}
-                boughtDate={boughtDate}
-            />
-        )}
-        {loading && <div>데이터 불러오는 중..</div>}
-        <div
-            id={"scrollEnd"}
-            ref={scrollEndRef}
-        ></div>
+      <div className="App">
+          <span>노출된 상품 총 가격 :{totalProductAmount.toLocaleString()}원</span>
+          <div
+              className={"Product-List"}
+              ref={scrollContainerRef}
+          >
+              {productList
+                  .datas
+                  .map(({
+                            productId,
+                            price,
+                            productName,
+                            boughtDate
+                        }) =>
+                      <ProductItem
+                          key={productId}
+                          productId={productId}
+                          productName={productName}
+                          price={price}
+                          boughtDate={boughtDate}
+                      />
+                  )}
+              {loading && <div>데이터 불러오는 중..</div>}
+              <div
+                  id={"scrollEnd"}
+                  ref={scrollEndRef}
+              ></div>
 
+          </div>
       </div>
-    </div>
   );
 }
 
